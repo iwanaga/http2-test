@@ -2,12 +2,18 @@ var http2 = require('http2');
 var url   = require('url');
 var CONF  = require('./conf/conf.json');
 
-var URL = CONF.Schema + '://' + CONF.Host + '/';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-http2.get(URL, function(res){
+var opt = {
+    host: CONF.Host,
+    port: CONF.Port,
+    method: 'GET',
+    path: '/',
+    //rejectUnauthorized: false
+};
+http2.get(opt, function(res){
 
     console.log('== REQUEST ==');
-    console.log(res);
+    console.log('npnProtocol: ', res.socket.pair.npnProtocol);
 
     console.log('== RESPONSE ==')
     console.log(res.statusCode);
@@ -21,7 +27,6 @@ http2.get(URL, function(res){
 });
 
 /*
-
 var opt = url.parse(URL);
 opt.plain = Boolean(process.env.HTTP2_PLAIN);
 var req = http2.request(opt);
