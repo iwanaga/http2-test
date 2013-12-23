@@ -1,13 +1,26 @@
 var http2 = require('http2');
-var url   = require('url');
+var util  = require('util');
 var CONF  = require('./conf/conf.json');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+function logger() {
+    util.inspect(arguments, {depth: null});
+}
 var opt = {
     host: CONF.Host,
     port: CONF.Port,
     method: 'GET',
     path: '/',
+    log: {
+	fatal: logger,
+	error: logger,
+	warn : logger,
+	info : logger,
+	debug: logger,
+	trace: logger,
+
+	child: function() { return this; }
+    }
     //rejectUnauthorized: false
 };
 http2.get(opt, function(res){
@@ -17,12 +30,12 @@ http2.get(opt, function(res){
 
     console.log('== RESPONSE ==')
     console.log(res.statusCode);
-    console.log('----- header -----');
-    console.log(res.headers);
-    console.log('------------------');
+    //console.log('----- header -----');
+    //console.log(res.headers);
+    //console.log('------------------');
 
     res.on('data', function(data){
-        console.log(data.toString('utf8'));
+	    //console.log(data.toString('utf8'));
     });
 });
 

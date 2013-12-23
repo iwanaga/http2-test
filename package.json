@@ -1,0 +1,15 @@
+{
+  "name": "http2-test",
+  "version": "0.0.1",
+  "public": false,
+  "description": "HTTP/2.0 draft-09 test.",
+  "repository": "https://github.com/iwanaga/http2-test.git",
+  "engines": {
+    "node": "0.10.24"
+  },
+  "dependencies": {
+    "http2": ">=2.1.1"
+  },
+  "author": "iwanaga",
+  "license": "MIT"
+}
